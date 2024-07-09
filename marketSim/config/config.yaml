@@ -1,0 +1,24 @@
+# Configuration file for market simulation project
+
+# Data settings
+data:
+  folder: "./data/Kraken_OHLCVT"
+
+# Simulation settings
+simulation:
+  start_currency: "USD"
+  start_val: 1000
+  episode_len: 200
+  pred_len: 300
+  interval: 60
+
+# Available markets
+markets:
+  - BTCUSD
+  - ETHUSD
+  - EURUSD
+
+# Logging settings
+logging:
+  level: "INFO"
+  file: "./logs/simulation.log"
