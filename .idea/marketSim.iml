@@ -5,6 +5,7 @@
     <content url="file://$USER_HOME$/Documents/programming/stock_prediction/code" />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/data" />
     </content>
     <content url="file://$MODULE_DIR$/data" />
     <orderEntry type="inheritedJdk" />
