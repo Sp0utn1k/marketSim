@@ -1,4 +1,4 @@
-from utils import load_data
+from marketSim.utils.data_processing import load_data
 from marketSim.instruments.instruments import instruments, ref_currencies
 from collections import OrderedDict
 import numpy as np

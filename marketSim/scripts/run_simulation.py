@@ -1,7 +1,7 @@
 import logging
 import random
-from ..utils.io import load_config, setup_logging
-from ..main import Wallet
+from marketSim.utils.io import load_config, setup_logging
+from marketSim.main import Wallet
 
 
 def run_simulation():

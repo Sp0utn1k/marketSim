@@ -4,6 +4,7 @@
     <content url="file://$USER_HOME$/Documents/programming/stock_prediction/API crypto.com" />
     <content url="file://$USER_HOME$/Documents/programming/stock_prediction/code" />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/marketSim" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/data" />
     </content>
