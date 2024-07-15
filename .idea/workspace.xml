@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f0bc4c6-1959-459f-bec2-cd44658b5842" name="Changes" comment="add .gitignore">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/marketSim.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/marketSim.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/marketSim/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/marketSim/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/marketSim/scripts/run_simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/marketSim/scripts/run_simulation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +23,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Sp0utn1k"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Sp0utn1k/marketSim.git",
+    "accountId": "7752c30f-b762-45ec-883c-12f298c64d3a"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -113,6 +123,7 @@
       <workItem from="1719900801114" duration="5188000" />
       <workItem from="1720493818221" duration="4133000" />
       <workItem from="1720498479088" duration="2175000" />
+      <workItem from="1721021604470" duration="211000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -130,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720499813929</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add .gitignore">
+      <option name="closed" value="true" />
+      <created>1721021703034</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1721021703034</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
