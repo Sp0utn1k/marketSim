@@ -5,6 +5,7 @@ import numpy as np
 import time
 import random
 import copy
+from concurrent.futures import ThreadPoolExecutor
 
 
 class Wallet:
@@ -51,11 +52,26 @@ class Wallet:
         self.data_size = (self.tend - self.t0) / self.interval + 1
         self.data_size = int(self.data_size)
 
+        def process_market(mrkt, market_data):
+            market_data = market_data[market_data[:, 0] <= self.tend, :]
+            market_data = fill_empty(market_data, self.tend)
+            market_data = market_data[market_data[:, 0] >= self.t0, :]
+            return mrkt, market_data
+
+        with ThreadPoolExecutor() as executor:
+            futures = {executor.submit(process_market, mrkt, market_data): mrkt for mrkt, market_data in
+                       self.market_data.items()}
+            for future in futures:
+                mrkt, market_data = future.result()
+                self.market_data[mrkt] = market_data
+
+        """
         for (mrkt, market_data) in self.market_data.items():
             market_data = market_data[market_data[:, 0] <= self.tend, :]
             market_data = fill_empty(market_data, self.tend)
             market_data = market_data[market_data[:, 0] >= self.t0, :]
             self.market_data[mrkt] = market_data
+        """
 
     def init_links(self):
         self.links = {self.start_currency: []}
@@ -107,7 +123,7 @@ class Wallet:
         wallet = np.append(self.get_wallet_values(), t)
         return wallet, market_data
 
-    def transaction(self, marketname, qtt, apply_fees=True):
+    def make_transaction(self, marketname, qtt, apply_fees=True):
         quote, base = market_to_currencies(marketname)
         rate = self.market_data[marketname][self.episode0 + self.i - 1, 4]
 
@@ -170,7 +186,7 @@ class Wallet:
             for transaction in transactions:
                 marketname = transaction[0]
                 action = transaction[1]
-                self.transaction(marketname, action)
+                self.make_transaction(marketname, action)
 
     def step(self, actions):
 
@@ -207,37 +223,39 @@ def market_to_currencies(market_name):
 
 def fill_empty(old_data, tend, interval=60.0):
     t0 = old_data[0, 0]
-    size = (tend - t0) / interval + 1
+    size = int((tend - t0) / interval + 1)
 
+    # Initialize new data array with zeros
+    new_data = np.zeros((size, old_data.shape[1]))
+    new_data[0] = old_data[0]
+
+    # Fill missing intervals with previous value
+    val = new_data[0, 4]
+    i_new = 1
+    for i in range(1, len(old_data)):
+        t1, t2 = old_data[i - 1, 0], old_data[i, 0]
+        num_intervals = int((t2 - t1) / interval)
+
+        if num_intervals > 1:
+            # Fill in the missing intervals
+            t_fill = np.arange(t1 + interval, t2, interval)
+            fill_values = np.full((num_intervals - 1, 4), val)
+            fill_volumes = np.zeros((num_intervals - 1, 1))
+            new_data[i_new:i_new + num_intervals - 1] = np.hstack((t_fill.reshape(-1, 1), fill_values, fill_volumes))
+            i_new += num_intervals - 1
+
+        # Copy current data to the new array
+        new_data[i_new] = old_data[i]
+        val = old_data[i, 4]
+        i_new += 1
+
+    # Handle case where the last timestamp is less than tend
     if old_data[-1, 0] < tend:
         val = old_data[-1, 4]
-        sample = np.array([tend, val, val, val, val, 0]).reshape(1, -1)
-        old_data = np.concatenate((old_data, sample))
-
-    new_data = np.zeros((int(size), 6))
-    new_data[0, :] = old_data[0, :]
-    i = 1
-    i_new = 1
-    val = new_data[0, 4]
-    while i < len(old_data):
-
-        t1 = old_data[i - 1, 0]
-        t2 = old_data[i, 0]
-        di = (t2 - t1) / interval
-        N = int(di) - 1
-        if di > 1:
-            t = t1 + interval * np.arange(1, N + 1).reshape(N, 1)
-            candles = val * np.ones((N, 4))
-            volumes = np.zeros((N, 1))
-            new_data[i_new:i_new + N, :] = np.concatenate((t, candles, volumes), axis=1)
-
-        new_data[i_new + N, :] = old_data[i, :]
-
-        i_new += int(di)
-        val = old_data[i, 4]
-        i += 1
+        new_data[i_new:] = np.array([[t, val, val, val, val, 0] for t in np.arange(new_data[i_new - 1, 0] + interval, tend + interval, interval)])
 
     return new_data
+
 
 
 if __name__ == '__main__':
