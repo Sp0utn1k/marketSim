@@ -1,5 +1,6 @@
 import torch
 
+
 def pre_process(out):
     body = out[:, [0, 3]]
     real_body = 10 * torch.log(body[:, 1] / body[:, 0])
@@ -11,21 +12,25 @@ def pre_process(out):
     processed = torch.stack((real_body, shadow_up, shadow_low, out[:, 3], out[:, 4]), dim=1)
     return processed
 
-def make_metabatch(out, metadata, batch_size, sample_size, pred_len):
-    device = out.device
-    max_idx = out.shape[0] - (sample_size + pred_len)
-    ids = tuple(torch.arange(idx, idx + sample_size + pred_len, device=device) for idx in torch.randint(max_idx, (batch_size,)))
-    ids = torch.stack(ids, dim=0)
-    batch = out[ids, :].transpose(1, 2)
-    batch, target = batch[:, :, :sample_size], batch[:, 3, sample_size:]
-    metabatch = metadata[ids[:, 0], :]
-    return batch, metabatch, target
 
-def make_batch(out, batch_size, sample_size, pred_len):
+def create_batches(out, metadata=None, batch_size=32, sample_size=50, pred_len=10, include_meta=False):
     device = out.device
     max_idx = out.shape[0] - (sample_size + pred_len)
-    ids = tuple(torch.arange(idx, idx + sample_size + pred_len, device=device) for idx in torch.randint(max_idx, (batch_size,)))
-    ids = torch.stack(ids, dim=0)
+    ids = torch.randint(max_idx, (batch_size,))
+    ids = torch.stack([torch.arange(idx, idx + sample_size + pred_len, device=device) for idx in ids])
     batch = out[ids, :].transpose(1, 2)
     batch, target = batch[:, :, :sample_size], batch[:, 3, sample_size:]
-    return batch, target.flatten()
+
+    if include_meta and metadata is not None:
+        metabatch = metadata[ids[:, 0], :]
+        return batch, metabatch, target
+    else:
+        return batch, target.flatten()
+
+
+def make_metabatch(out, metadata, batch_size=32, sample_size=50, pred_len=10):
+    return create_batches(out, metadata, batch_size, sample_size, pred_len, include_meta=True)
+
+
+def make_batch(out, batch_size=32, sample_size=50, pred_len=10):
+    return create_batches(out, batch_size=batch_size, sample_size=sample_size, pred_len=pred_len)

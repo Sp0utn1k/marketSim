@@ -2,7 +2,7 @@
 
 # Data settings
 data:
-  folder: "./data/Kraken_OHLCVT"
+  folder: "data/Kraken_OHLCVT"
 
 # Simulation settings
 simulation:
@@ -21,4 +21,4 @@ markets:
 # Logging settings
 logging:
   level: "INFO"
-  file: "./logs/simulation.log"
+  file: "marketSim/logs/simulation.log"

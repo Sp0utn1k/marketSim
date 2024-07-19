@@ -41,7 +41,7 @@ class Wallet:
             self.wallet[quote] = 0.0
             self.wallet[base] = 0.0
 
-            market_data = load_data(mrkt, to_torch=False)
+            market_data = load_data("data/Kraken_OHLCVT", mrkt, to_torch=False)
             t0 = market_data[0, 0]
             tend = market_data[-1, 0]
             self.t0 = max(t0, self.t0)
@@ -165,7 +165,7 @@ class Wallet:
             for i in range(len(transactions)):
                 transactions_per_currency[currency][i][1] *= multiplier
 
-        print(transactions_per_currency)
+
         for transactions in transactions_per_currency.values():
             for transaction in transactions:
                 marketname = transaction[0]

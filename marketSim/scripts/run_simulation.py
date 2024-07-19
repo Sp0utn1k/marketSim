@@ -6,7 +6,7 @@ from marketSim.main import Wallet
 
 def run_simulation():
     # Load configuration
-    config = load_config('config/config.yaml')
+    config = load_config('marketSim/config/config.yaml')
     setup_logging(config)
 
     logging.info("Starting simulation")

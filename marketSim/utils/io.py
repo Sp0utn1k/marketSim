@@ -1,12 +1,14 @@
 import logging
 import yaml
 
+
 def setup_logging(config):
     logging.basicConfig(
         filename=config['logging']['file'],
-        level=getattr(logging, config['logging']['level']),
+        level=getattr(logging, config['logging']['level'].upper()),
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
+
 
 def load_config(config_file):
     with open(config_file, 'r') as file:

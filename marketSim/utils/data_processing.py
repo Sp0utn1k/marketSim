@@ -4,7 +4,9 @@ import torch
 
 
 def get_ohlcvt(datafolder, instrument_name, interval=1, **kwargs):
-    assert interval in [1, 5, 15, 30, 60, 240, 720, 1440], "Unknown interval"
+    if interval not in [1, 5, 15, 30, 60, 240, 720, 1440]:
+        raise ValueError("Unknown interval")
+
     datafile = f"{datafolder}/{instrument_name}_{interval}.csv"
     names = ["time", "open", "high", "low", "close", "volume", "trades"]
     return pd.read_csv(datafile, header=None, names=names, skiprows=1, **kwargs)

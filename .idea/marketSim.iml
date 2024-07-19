@@ -5,6 +5,11 @@
     <content url="file://$USER_HOME$/Documents/programming/stock_prediction/code" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/marketSim" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv/etc" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv/share" />
+      <excludeFolder url="file://$MODULE_DIR$/data/Kraken_OHLCVT" />
     </content>
     <content url="file://$MODULE_DIR$/data" />
     <orderEntry type="inheritedJdk" />
