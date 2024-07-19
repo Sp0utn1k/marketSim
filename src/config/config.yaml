@@ -17,6 +17,7 @@ markets:
   - BTCUSD
   - ETHUSD
   - EURUSD
+  - ETHXBT
 
 # Logging settings
 logging:

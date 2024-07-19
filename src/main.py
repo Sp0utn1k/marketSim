@@ -176,11 +176,13 @@ class Wallet:
         for currency, transactions in transactions_per_currency.items():
             proportions = [abs(transaction[1]) for transaction in transactions]
             divider = max(sum(proportions), 1)
-            multiplier = self.wallet[currency] / divider
+            if divider == 0:
+                multiplier = 0
+            else:
+                multiplier = self.wallet[currency] / divider
 
             for i in range(len(transactions)):
                 transactions_per_currency[currency][i][1] *= multiplier
-
 
         for transactions in transactions_per_currency.values():
             for transaction in transactions:
@@ -252,16 +254,16 @@ def fill_empty(old_data, tend, interval=60.0):
     # Handle case where the last timestamp is less than tend
     if old_data[-1, 0] < tend:
         val = old_data[-1, 4]
-        new_data[i_new:] = np.array([[t, val, val, val, val, 0] for t in np.arange(new_data[i_new - 1, 0] + interval, tend + interval, interval)])
+        new_data[i_new:] = np.array([[t, val, val, val, val, 0] for t in
+                                     np.arange(new_data[i_new - 1, 0] + interval, tend + interval, interval)])
 
     return new_data
-
 
 
 if __name__ == '__main__':
 
     env = Wallet(start_currency="EUR", start_val=1, episode_len=40,
-                 available_markets=["BTCUSD", "ETHXBT", "ETHUSD", "EURUSD", "ETHUSDT"])
+                 available_markets=["BTCUSD", "ETHXBT", "ETHUSD", "EURUSD"])
 
     for market, data in env.market_data.items():
         print(market, data.shape)
