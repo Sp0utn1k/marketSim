@@ -4,7 +4,7 @@
     <content url="file://$USER_HOME$/Documents/programming/stock_prediction/API crypto.com" />
     <content url="file://$USER_HOME$/Documents/programming/stock_prediction/code" />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/marketSim" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.venv/bin" />
       <excludeFolder url="file://$MODULE_DIR$/.venv/etc" />
       <excludeFolder url="file://$MODULE_DIR$/.venv/lib" />
@@ -18,7 +18,7 @@
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
       <list>
-        <option value="$MODULE_DIR$/marketSim" />
+        <option value="$MODULE_DIR$/src" />
       </list>
     </option>
   </component>

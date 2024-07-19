@@ -1,5 +1,5 @@
-from marketSim.utils.data_processing import load_data
-from marketSim.instruments.instruments import instruments, ref_currencies
+from src.utils.data_processing import load_data
+from src.instruments.instruments import instruments, ref_currencies
 from collections import OrderedDict
 import numpy as np
 import time

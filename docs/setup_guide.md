@@ -12,7 +12,7 @@ This guide will help you set up the Market Simulation project.
 1. Clone the repository:
     ```bash
     git clone https://github.com/yourusername/marketSim.git
-    cd marketSim
+    cd src
     ```
 
 2. Create a virtual environment:

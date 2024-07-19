@@ -21,4 +21,4 @@ markets:
 # Logging settings
 logging:
   level: "INFO"
-  file: "marketSim/logs/simulation.log"
+  file: "src/logs/simulation.log"
